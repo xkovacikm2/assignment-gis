@@ -20,8 +20,10 @@ Build a map-based application, which lets the user see geo-based data on a map a
 
 Fill in (either in English, or in Slovak):
 
-**Application description**: `<fill in>`
+**Application description**: Aplikácia pracuje s dátami z hláseniami San Franciskej polície o kriminálnej aktivite. Zobrazuje na mape regióny, kde sa najčastejšie dejú zločiny a umožňuje filtrovanie nad typmi zločinov.
 
-**Data source**: `<fill in>`
+Príklad prípadu použitia: Používateľ chce zobraziť zóny s vysokou koncetráciou hlásení o prostitúcií.
 
-**Technologies used**: `<fill in>`
+**Data source**: [Open Street Maps](https://www.openstreetmap.org/), [Kaggle](https://www.kaggle.com/san-francisco/sf-police-calls-for-service-and-incidents)
+
+**Technologies used**: Ruby on rails, postgis, mapbox
