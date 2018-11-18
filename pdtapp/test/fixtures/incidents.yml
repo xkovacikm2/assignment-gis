@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: one
+  description: MyString
+  date: 2018-11-18
+  time: 2018-11-18 12:09:32
+  resolution: one
+  police_district: one
+
+two:
+  category: two
+  description: MyString
+  date: 2018-11-18
+  time: 2018-11-18 12:09:32
+  resolution: two
+  police_district: two

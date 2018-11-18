@@ -1,0 +1,2 @@
+class PoliceDistrict < ApplicationRecord
+end
