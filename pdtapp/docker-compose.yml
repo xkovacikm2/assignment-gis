@@ -14,7 +14,7 @@ services:
       - ~/Documents/docker/postgis:/var/lib/postgresql/data
 
   maptiles:
-    image: klokantech/openmaptiles-service:latest
+    image: klokantech/openmaptiles-server:latest
     restart: always
     ports:
       - 1111:80
