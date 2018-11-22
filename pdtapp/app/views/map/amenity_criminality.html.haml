@@ -1,0 +1,38 @@
+.row
+  .col-md-8
+    #map
+
+  .col-md-3
+    %form.form{action: '/', method: :get}
+
+      .form-group
+        %label{for: :amenity} Amenity type
+        %select.form-control{name: :amenity}
+          - Amenities.get_amenities_types.each do |type|
+            - if params[:amenity] == type
+              %option{value: type, selected: 'selected'}= type.humanize
+            - else
+              %option{value: type}= type.humanize
+
+      .form-group
+        %label{for: :crime} Crime category
+        %select.form-control{name: :crime}
+          - @crime_categories.each do |crime|
+            - if params[:crime] == crime
+              %option{value: crime, selected: 'selected'}= crime.humanize
+            - else
+              %option{value: crime}= crime.humanize
+
+      .form-group
+        %label{for: :distance} Distance from amenity
+        %input.form-control{name: :distance, type: :number, step: 5, min: 0, value: params[:distance]}
+
+      .form-group
+        %label{for: :date_from} Date from
+        %input.form-control{type: :date, name: :date_from, value: params[:date_from]}
+
+      .form-group
+        %label{for: :date_to} Date from
+        %input.form-control{type: :date, name: :date_to, value: params[:date_to]}
+
+      %button.btn.btn-primary{type: :submit} Search
