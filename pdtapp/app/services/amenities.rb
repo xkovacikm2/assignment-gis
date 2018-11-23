@@ -34,7 +34,7 @@ class Amenities
       amenity[:properties] = {
         name: geojson[1],
         occurences: geojson[2],
-        descriptions: JSON.parse(geojson[3]).join(',')
+        descriptions: JSON.parse(geojson[3]).uniq.join('<br>')
       }
 
       amenity

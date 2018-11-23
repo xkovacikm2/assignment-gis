@@ -3,7 +3,7 @@ version: "3"
 services:
 
   postgis:
-    image: mdillon/postgis:latest
+    image: starefossen/pgrouting:latest
     restart: always
     ports:
       - 5432:5432
@@ -12,12 +12,4 @@ services:
       POSTGRES_USER: postgres
     volumes:
       - ~/Documents/docker/postgis:/var/lib/postgresql/data
-
-  maptiles:
-    image: klokantech/openmaptiles-server:latest
-    restart: always
-    ports:
-      - 1111:80
-    volumes:
-      - ~/Documents/docker/maptiles:/data
 
