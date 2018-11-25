@@ -1,12 +1,52 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9jaWt0bzE5IiwiYSI6ImNqb3NxMGluczBkYWgzcm85MXEzYWxuaW8ifQ.nUwtVum6Bl648NNmJrxJ8Q';
 
 $ ->
   amenity_criminality() if gon.action == 'amenity_criminality'
   police_path() if gon.action == 'police_path'
+  crime_heatmap() if gon.action == 'crime_heatmap'
+  region_heatmap() if gon.action == 'region_heatmap'
+
+crime_heatmap = ->
+  map = new mapboxgl.Map gon.init_geo_json
+  popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  })
+
+  console.log gon.heatmap
+
+  map.on 'load', () ->
+    map.addLayer({
+      id: 'crime-heat'
+      type: 'heatmap'
+      source: gon.heatmap
+      paint:
+        'heatmap-weight': 1
+        'heatmap-radius': 5
+    })
+
+region_heatmap = ->
+  map = new mapboxgl.Map gon.init_geo_json
+  popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  })
+
+
+  map.on 'load', () ->
+    map.addLayer({
+      id: 'city-districts'
+      type: 'fill'
+      source: gon.regions
+      paint:
+        'fill-color': ['get', 'color']
+        'fill-opacity': 0.5
+        'fill-outline-color': '#fff'
+    })
+
+  map.on 'mouseenter', 'city-districts', (e) -> set_popup(e, map, popup)
+  map.on 'mouseleave', 'city-districts', (e) -> unset_popup(e, map, popup)
+
 
 amenity_criminality = ->
   map = new mapboxgl.Map gon.init_geo_json
@@ -90,7 +130,7 @@ police_path = ->
         'line-cap': 'round'
       paint:
         'line-color': '#888'
-        'line-width': 8
+        'line-width': 4
     })
 
   map.on 'mouseenter', 'points', (e) -> set_popup(e, map, popup)
@@ -118,7 +158,7 @@ police_path = ->
             coordinates: [e.lngLat.lng, e.lngLat.lat]
       layout:
         'icon-image': 'dot'
-        'icon-size': 1
+        'icon-size': 2
     })
 
 unset_popup = (e, map, popup) ->
@@ -140,3 +180,5 @@ set_popup = (e, map, popup) ->
       popup.setLngLat(coordinates[0]).setHTML(html).addTo(map)
     catch
       popup.setLngLat(coordinates[0][0]).setHTML(html).addTo(map)
+
+

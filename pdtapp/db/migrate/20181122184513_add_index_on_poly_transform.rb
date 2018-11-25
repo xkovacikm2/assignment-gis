@@ -1,4 +1,6 @@
 class AddIndexOnPolyTransform < ActiveRecord::Migration[5.2]
+
+  # ST_Transform index too huge, so separate column created instead
   def up
     sql = <<-SQL
       ALTER TABLE planet_osm_polygon

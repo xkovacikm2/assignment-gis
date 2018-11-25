@@ -15,12 +15,26 @@ class MapController < ApplicationController
     gon.init_geo_json[:center] = @centroid unless @centroid.nil?
   end
 
+  def region_heatmap
+    gon.action = 'region_heatmap'
+    regions = RegionHeatmap.district_crime_map
+    gon.regions = feature_collection regions
+  end
+
+  def crime_heatmap
+    gon.action = 'crime_heatmap'
+    heatmap = CrimeHeatmap.get_heatmap params[:date_from] || Date.current,
+                                       params[:date_to]|| Date.current,
+                                       params[:crime]
+    gon.heatmap = feature_collection heatmap
+  end
+
   private
 
   def clickpoint_to_police_path
     police_path, points = PolicePath.get_police_call params[:date_from] || Date.current,
-                                             params[:date_to] || Date.current,
-                                             params[:clickpoint]
+                                                     params[:date_to] || Date.current,
+                                                     params[:clickpoint]
 
     gon.police_path = feature_collection police_path
     gon.points = feature_collection points

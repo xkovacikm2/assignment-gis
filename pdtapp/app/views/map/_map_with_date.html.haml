@@ -1,0 +1,20 @@
+.row
+  .col-md-8
+    #map
+
+  .col-md-3
+    %form.form{method: :get}
+
+      = yield if block_given?
+
+      .form-group
+        %label{for: :date_from} Date from
+        %input.form-control{type: :date, name: :date_from, value: params[:date_from]}
+
+      .form-group
+        %label{for: :date_to} Date to
+        %input.form-control{type: :date, name: :date_to, value: params[:date_to]}
+
+      %input#clickpoint{type: :hidden, name: :clickpoint, value: params[:clickpoint]}
+
+      %button.btn.btn-primary{type: :submit} Search
