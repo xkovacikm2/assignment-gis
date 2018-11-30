@@ -1,12 +1,17 @@
 class RegionHeatmap
   def self.district_crime_map
+    incidents_sql = <<-SQL
+      SELECT *
+      FROM incidents AS i
+      WHERE i.date >= '2004/01/01'
+        AND i.date <= '2005/01/01'
+    SQL
+
     polygon_sql = <<-SQL
       SELECT ST_AsGeoJSON(poly.way_lat_lon), poly.name, COUNT(i.*)
       FROM planet_osm_polygon AS poly
-      LEFT JOIN incidents AS i ON ST_Contains(poly.way_lat_lon, i.position::geometry)
+      LEFT JOIN (#{incidents_sql}) AS i ON ST_Contains(poly.way_lat_lon, i.position::geometry)
       WHERE poly.admin_level IS NOT NULL
-        AND (i.date >= '2004/01/01' OR i.date IS NULL)
-        AND (i.date <= '2005/01/01' OR i.date IS NULL)
       GROUP BY poly.way_lat_lon, poly.name
     SQL
 

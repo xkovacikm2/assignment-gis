@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_192851) do
+ActiveRecord::Schema.define(version: 2018_11_30_083553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgrouting"
@@ -270,6 +270,7 @@ ActiveRecord::Schema.define(version: 2018_11_25_192851) do
     t.float "way_area"
     t.geometry "way", limit: {:srid=>3857, :type=>"geometry"}
     t.geometry "way_lat_lon", limit: {:srid=>4326, :type=>"geometry"}
+    t.index ["admin_level"], name: "index_planet_osm_polygon_on_admin_level"
     t.index ["amenity"], name: "polygon_amenities"
     t.index ["way"], name: "planet_osm_polygon_way_idx", using: :gist
   end
