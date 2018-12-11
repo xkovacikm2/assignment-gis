@@ -25,7 +25,7 @@ class Amenities
       GROUP BY poly.way_lat_lon, poly.name
     SQL
 
-    result = ActiveRecord::Base.connection.execute(sql)
+    result = ActiveRecord::Base.connection.execute sql
 
     amenities = result.values.map do |geojson|
       amenity = {type: :feature}
